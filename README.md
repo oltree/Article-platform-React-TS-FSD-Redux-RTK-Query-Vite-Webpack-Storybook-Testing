@@ -1,112 +1,173 @@
-## Запуск проекта
+# Article Hub
 
+Платформа для статей с профилями пользователей, комментариями и рейтингами. SPA на React с архитектурой Feature Sliced Design.
+
+---
+
+## Стек технологий
+
+| Категория | Технологии |
+|-----------|------------|
+| **UI** | React 18, React DOM, React Router v6 |
+| **Стили** | Sass/SCSS |
+| **Язык** | TypeScript 4.x |
+| **Сборка** | Webpack 5, Vite 3 (поддерживаются оба) |
+| **Состояние** | Redux Toolkit, React-Redux, RTK Query |
+| **i18n** | i18next, react-i18next, i18next-browser-languagedetector, i18next-http-backend |
+| **HTTP** | Axios (через RTK Query) |
+| **UI-библиотеки** | Headless UI, React Spring, use-gesture |
+| **Линтинг** | ESLint (Airbnb, Prettier, TypeScript, i18next, FSD-плагин), Stylelint |
+| **Тесты** | Jest, React Testing Library, Cypress (e2e), Loki (скриншоты) |
+| **Документация UI** | Storybook 6 (Webpack 5) |
+| **Гит-хуки** | Husky, lint-staged |
+| **Прочее** | Babel, json-server (mock API) |
+
+---
+
+## Быстрый старт
+
+```bash
+npm install
+npm run start:dev        # Webpack + mock API
+# или
+npm run start:dev:vite   # Vite + mock API
 ```
-npm install - устанавливаем зависимости
-npm run start:dev или npm run start:dev:vite - запуск сервера + frontend проекта в dev режиме
-```
+
+Приложение: `http://localhost:3000`. Бэкенд (json-server) поднимается вместе с фронтом.
 
 ---
 
 ## Скрипты
 
-- `npm run start` - Запуск frontend проекта на webpack dev server
-- `npm run start:vite` - Запуск frontend проекта на vite
-- `npm run start:dev` - Запуск frontend проекта на webpack dev server + backend
-- `npm run start:dev:vite` - Запуск frontend проекта на vite + backend
-- `npm run start:dev:server` - Запуск backend сервера
-- `npm run build:prod` - Сборка в prod режиме
-- `npm run build:dev` - Сборка в dev режиме (не минимизирован)
-- `npm run lint:ts` - Проверка ts файлов линтером
-- `npm run lint:ts:fix` - Исправление ts файлов линтером
-- `npm run lint:scss` - Проверка scss файлов style линтером
-- `npm run lint:scss:fix` - Исправление scss файлов style линтером
-- `npm run test:unit` - Хапуск unit тестов с jest
-- `npm run test:ui` - Хапуск скриншотных тестов с loki
-- `npm run test:ui:ok` - Подтверждение новых скриншотов
-- `npm run test:ui:ci` - Запуск скриншотных тестов в CI
-- `npm run test:ui:report` - Генерация полного отчета для скриншотных тестов
-- `npm run test:ui:json` - Генерация json отчета для скриншотных тестов
-- `npm run test:ui:html` - Генерация HTML отчета для скриншотных тестов
-- `npm run storybook` - запуск Storybook
-- `npm run storybook:build` - Сборка storybook билда
-- `npm run prepare` - прекоммит хуки
-- `npm run generate:slice` - Скрипт для генерации FSD слайсов
+### Запуск
+
+| Команда | Описание |
+|---------|----------|
+| `npm run start` | Dev-сервер на Webpack (порт 3000) |
+| `npm run start:vite` | Dev-сервер на Vite |
+| `npm run start:dev` | Webpack + json-server |
+| `npm run start:dev:vite` | Vite + json-server |
+| `npm run start:dev:server` | Только json-server |
+
+### Сборка
+
+| Команда | Описание |
+|---------|----------|
+| `npm run build:prod` | Production-сборка (Webpack) |
+| `npm run build:dev` | Development-сборка без минификации |
+
+### Линтинг и формат
+
+| Команда | Описание |
+|---------|----------|
+| `npm run lint:ts` | Проверка TS/TSX (ESLint) |
+| `npm run lint:ts:fix` | Автоисправление TS/TSX |
+| `npm run lint:scss` | Проверка SCSS (Stylelint) |
+| `npm run lint:scss:fix` | Автоисправление SCSS |
+| `npm run prettier` | Форматирование кода (Prettier) |
+
+### Тесты
+
+| Команда | Описание |
+|---------|----------|
+| `npm run test:unit` | Unit-тесты (Jest + React Testing Library) |
+| `npm run test:e2e` | E2E (Cypress, интерактивно) |
+| `npm run test:ui` | Скриншотные тесты (Loki) |
+| `npm run test:ui:ok` | Подтверждение новых скриншотов Loki |
+| `npm run test:ui:ci` | Скриншотные тесты для CI |
+| `npm run test:ui:report` | Полный отчёт по скриншотам (JSON + HTML) |
+
+### Storybook
+
+| Команда | Описание |
+|---------|----------|
+| `npm run storybook` | Запуск Storybook (порт 6006) |
+| `npm run storybook:build` | Сборка статического Storybook |
+
+### Утилиты
+
+| Команда | Описание |
+|---------|----------|
+| `npm run generate:slice` | Генерация FSD-слайса |
+| `npm run remove-feature` | Удаление feature-флага (аргументы: имя, on/off) |
+| `npm run prepare` | Установка Husky (pre-commit) |
 
 ---
 
-## Архитектура проекта
+## Архитектура (Feature Sliced Design)
 
-Проект написан в соответствии с методологией Feature sliced design
+Проект следует методологии [Feature Sliced Design](https://feature-sliced.design/docs/get-started/tutorial).
 
-Ссылка на документацию - [feature sliced design](https://feature-sliced.design/docs/get-started/tutorial)
+Слои (сверху вниз): `app` → `pages` → `widgets` → `features` → `entities` → `shared`.
 
----
+Используется **eslint-plugin-ulbi-tv-plugin** для контроля FSD:
 
-## Работа с переводами
-
-В проекте используется библиотека i18next для работы с переводами.
-Файлы с переводами хранятся в public/locales.
-
-Для комфортной работы рекомендуем установить плагин для webstorm/vscode
-
-Документация i18next - [https://react.i18next.com/](https://react.i18next.com/)
+1. **path-checker** — запрет абсолютных импортов внутри одного модуля.
+2. **layer-imports** — проверка зависимостей слоёв (например, widgets не импортируются из features/entities).
+3. **public-api-imports** — импорт из других модулей только через public API (есть auto fix).
 
 ---
 
-## Тесты
+## Структура сущностей и фич
 
-В проекте используются 4 вида тестов:
+**Entities:** Article, Comment, Country, Currency, Notification, Profile, Rating, User.
 
-1. Обычные unit тесты на jest - `npm run test:unit`
-2. Тесты на компоненты с React testing library -`npm run test:unit`
-3. Скриншотное тестирование с loki `npm run test:ui`
-4. e2e тестирование с Cypress `npm run test:e2e`
+**Features:** addCommentForm, articleEditForm, articleRating, articleRecommendationsList, AuthByUsername, avatarDropdown, editableProfileCard, LangSwitcher, notificationButton, profileRating, ThemeSwitcher, UI.
 
-Подробнее о тестах - [документация тестирование](/docs/tests.md)
+Пути: `src/entities/*`, `src/features/*`.
 
 ---
 
-## Линтинг
+## Конфигурация
 
-В проекте используется eslint для проверки typescript кода и stylelint для проверки файлов со стилями.
+- **Webpack:** `./config/build`
+- **Vite:** `vite.config.ts`
+- **Babel:** `./config/babel`
+- **Jest:** `./config/jest`
+- **Storybook:** `./config/storybook`
+- **Скрипты:** `./scripts` (генерация слайсов, отчёты, remove-feature и др.)
 
-Также для строгого контроля главных архитектурных принципов
-используется собственный eslint plugin _eslint-plugin-ulbi-tv-plugin_,
-который содержит 3 правила
+---
 
-1. path-checker - запрещает использовать абсолютные импорты в рамках одного модуля
-2. layer-imports - проверяет корректность использования слоев с точки зрения FSD
-   (например widgets нельзя использовать в features и entitites)
-3. public-api-imports - разрешает импорт из других модулей только из public api. Имеет auto fix
+## Работа с данными
 
-##### Запуск линтеров
+- **Стейт:** Redux Toolkit. Переиспользуемые сущности нормализуются через EntityAdapter.
+- **Запросы:** [RTK Query](src/shared/api/rtkApi.ts).
+- **Ленивая подгрузка редюсеров:** [DynamicModuleLoader](src/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader.tsx).
 
-- `npm run lint:ts` - Проверка ts файлов линтером
-- `npm run lint:ts:fix` - Исправление ts файлов линтером
-- `npm run lint:scss` - Проверка scss файлов style линтером
-- `npm run lint:scss:fix` - Исправление scss файлов style линтером
+---
+
+## Переводы (i18n)
+
+Используется **i18next**. Переводы лежат в `public/locales`. Документация: [react.i18next.com](https://react.i18next.com/). Для IDE удобно поставить плагин i18next.
+
+---
+
+## Feature flags
+
+Разрешено использовать только хелпер **toggleFeatures** с объектом `{ name, on, off }`. Для удаления фичи — скрипт `npm run remove-feature <имя> <on|off>`.
+
+---
+
+## Тестирование
+
+1. **Unit:** Jest + React Testing Library — `npm run test:unit`.
+2. **Скриншоты:** Loki — `npm run test:ui`, подтверждение — `npm run test:ui:ok`.
+3. **E2E:** Cypress — `npm run test:e2e`.
+
+Подробнее: [документация по тестам](docs/tests.md).
 
 ---
 
 ## Storybook
 
-В проекте для каждого компонента описываются стори-кейсы.
-Запросы на сервер мокаются с помощью storybook-addon-mock.
+Рядом с компонентом создаётся `*.stories.tsx`. Моки запросов — **storybook-addon-mock**. Запуск: `npm run storybook`. Подробнее: [docs/storybook.md](docs/storybook.md).
 
-Файл со сторикейсами создает рядом с компонентом с расширением .stories.tsx
+Пример стори:
 
-Запустить сторибук можно командой:
-
-- `npm run storybook`
-
-Подробнее о [Storybook](/docs/storybook.md)
-
-Пример:
-
-```typescript jsx
+```tsx
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-
 import { ThemeDecorator } from '@/shared/config/storybook/ThemeDecorator/ThemeDecorator';
 import { Button, ButtonSize, ButtonTheme } from './Button';
 import { Theme } from '@/shared/const/theme';
@@ -114,110 +175,34 @@ import { Theme } from '@/shared/const/theme';
 export default {
   title: 'shared/Button',
   component: Button,
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
+  argTypes: { backgroundColor: { control: 'color' } },
 } as ComponentMeta<typeof Button>;
 
-const Template: ComponentStory<typeof Button> = args => <Button {...args} />;
+const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
 
 export const Primary = Template.bind({});
-Primary.args = {
-  children: 'Text',
-};
+Primary.args = { children: 'Text' };
 
 export const Clear = Template.bind({});
-Clear.args = {
-  children: 'Text',
-  theme: ButtonTheme.CLEAR,
-};
+Clear.args = { children: 'Text', theme: ButtonTheme.CLEAR };
 ```
 
 ---
 
-## Конфигурация проекта
+## CI и pre-commit
 
-Для разработки проект содержит 2 конфига:
-
-1. Webpack - ./config/build
-2. vite - vite.config.ts
-
-Оба сборщика адаптированы под основные фичи приложения.
-
-Вся конфигурация хранится в /config
-
-- /config/babel - babel
-- /config/build - конфигурация webpack
-- /config/jest - конфигурация тестовой среды
-- /config/storybook - конфигурация сторибука
-
-В папке `scripts` находятся различные скрипты для рефакторинга\упрощения написания кода\генерации отчетов и тд.
+- **GitHub Actions:** `/.github/workflows` — тесты, сборка, Storybook, линтинг.
+- **Pre-commit (Husky):** `/.husky` — линтеры и формат по коммитируемым файлам.
 
 ---
 
-## CI pipeline и pre commit хуки
+## Требования
 
-Конфигурация github actions находится в /.github/workflows.
-В ci прогоняются все виды тестов, сборка проекта и сторибука, линтинг.
-
-В прекоммит хуках проверяем проект линтерами, конфиг в /.husky
+- Node.js (рекомендуется LTS)
+- npm 7+
 
 ---
 
-### Работа с данными
+## Лицензия
 
-Взаимодействие с данными осуществляется с помощью redux toolkit.
-По возможности переиспользуемые сущности необходимо нормализовать с помощью EntityAdapter
-
-Запросы на сервер отправляются с помощью [RTK query](/src/shared/api/rtkApi.ts)
-
-Для асинхронного подключения редюсеров (чтобы не тянуть их в общий бандл) используется
-[DynamicModuleLoader](/src/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader.tsx)
-
----
-
-### Работа с feature-flag
-
-Разрешено использование feature flags только с помощью хелпера toggleFeatures
-
-в него передается объект с опциями
-
-{
-name: название фича-флага,
-on: функция, которая отработает после Включения фичи
-of: функция, которая отработает после ВЫключения фичи
-}
-
-Для автоматического удаления фичи использовать скрипт remove-feature.ts,
-который принимает 2 аргумента
-
-1. Название удаляемого фича-флага
-2. Состояние (on\off)
-
----
-
-## Сущности (entities)
-
-- [Article](/src/entities/Article)
-- [Comment](/src/entities/Comment)
-- [Country](/src/entities/Country)
-- [Currency](/src/entities/Currency)
-- [Notification](/src/entities/Notification)
-- [Profile](/src/entities/Profile)
-- [Rating](/src/entities/Rating)
-- [User](/src/entities/User)
-
-## Фичи (features)
-
-- [addCommentForm](/src/features/addCommentForm)
-- [articleEditForm](/src/features/articleEditForm)
-- [articleRating](/src/features/articleRating)
-- [articleRecommendationsList](/src/features/articleRecommendationsList)
-- [AuthByUsername](/src/features/AuthByUsername)
-- [avatarDropdown](/src/features/avatarDropdown)
-- [editableProfileCard](/src/features/editableProfileCard)
-- [LangSwitcher](/src/features/LangSwitcher)
-- [notificationButton](/src/features/notificationButton)
-- [profileRating](/src/features/profileRating)
-- [ThemeSwitcher](/src/features/ThemeSwitcher)
-- [UI](/src/features/UI)
+ISC

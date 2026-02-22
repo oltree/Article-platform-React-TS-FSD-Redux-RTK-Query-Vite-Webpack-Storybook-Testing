@@ -1,7 +1,7 @@
 {
-  "name": "production-project",
+  "name": "article-hub",
   "version": "1.0.0",
-  "description": "",
+  "description": "Article platform (React 18, TypeScript, FSD, Redux Toolkit, RTK Query, Vite/Webpack, i18next, Storybook, Jest, Cypress)",
   "main": "index.js",
   "scripts": {
     "start": "webpack serve --env port=3000",
@@ -37,7 +37,7 @@
       "eslint"
     ]
   },
-  "keywords": [],
+  "keywords": ["react", "typescript", "fsd", "feature-sliced-design", "redux-toolkit", "rtk-query", "vite", "webpack", "i18next", "storybook", "jest", "cypress", "sass"],
   "author": "",
   "license": "ISC",
   "devDependencies": {
