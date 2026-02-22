@@ -195,14 +195,3 @@ Clear.args = { children: 'Text', theme: ButtonTheme.CLEAR };
 - **Pre-commit (Husky):** `/.husky` — линтеры и формат по коммитируемым файлам.
 
 ---
-
-## Требования
-
-- Node.js (рекомендуется LTS)
-- npm 7+
-
----
-
-## Лицензия
-
-ISC
